@@ -1,4 +1,4 @@
-import { MenuProvider } from '@/hooks/MenuCOntext';
+import { MenuProvider } from '@/hooks/MenuContext';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';

@@ -1,4 +1,4 @@
-import { useMenu } from '@/hooks/MenuCOntext';
+import { useMenu } from '@/hooks/MenuContext';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 

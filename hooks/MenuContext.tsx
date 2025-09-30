@@ -18,7 +18,7 @@ const MenuContext = createContext<MenuContextType | undefined>(undefined);
 //    It stores the actual state (menu, setMenu) and makes it available to all children.
 export const MenuProvider = ({ children }: { children: ReactNode }) => {
   // useState holds the global value of `menu` (default = true).
-  const [menu, setMenu] = useState(true);
+  const [menu, setMenu] = useState(false);
 
   // Return a Provider component that passes `menu` and `setMenu` down to the tree.
   return (

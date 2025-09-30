@@ -1,12 +1,30 @@
-import { useMenu } from '@/hooks/MenuCOntext';
+import { useMenu } from '@/hooks/MenuContext';
+import { globalNotes, Note } from '@/hooks/user-date';
 import { Button } from '@react-navigation/elements';
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { v4 as uuidv4 } from "uuid";
 
 
-export default function AddNote() {
+type AddNoteProps = {
+  onAddNote: (title: string) => void;
+};
+
+export default function AddNote({ onAddNote }: AddNoteProps) {
 
     const { menu, setMenu } = useMenu();
+    const [ input, setInput ] = useState("");
+
+
+    const addNote = (name: string) => {
+      if (name == "") {
+        name = "Blank Note"
+      }
+      const newNote: Note = { id: uuidv4(), title: name, content: ""};
+
+      globalNotes[newNote.id] = newNote;
+      console.log("Note added:", globalNotes);
+    }
 
 
   return (
@@ -16,11 +34,15 @@ export default function AddNote() {
             <TextInput 
             placeholder='Note Title.' 
             style={styles.noteInput}
-            selectionColor="None" />
+            onChangeText={setInput}
+            selectionColor="None" 
+            value={input} />
 
             <View style={styles.buttonContainer}>
                 <Button style={styles.saveButton} onPressIn={() => {setMenu(false)}}>Cancel</Button>
-                <Button style={styles.saveButton}>Create</Button>
+                <Button onPress={() => { onAddNote(input); setInput(""); }}>
+                  Create
+                </Button>
             </View>
         </View>
     </View>
@@ -30,13 +52,16 @@ export default function AddNote() {
 
 const styles = StyleSheet.create({
   bodyContainer: {
-    flex: 3,
-    width: "100%",
-    height: "100%",
-    backgroundColor: 'None',
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
     justifyContent: "center",
     alignItems: "center",
-  },
+    backgroundColor: "rgba(0,0,0,0.2)",
+    zIndex: 10, // 👈 ensures it stacks above other content
+},
   menuView: {
     width: "60%",
     height: "35%",
